@@ -11,6 +11,10 @@ if [ $(uname) = 'Darwin' ]; then
       sudo port install $port
     fi
   done
+
+  if [ -z "$(grep EDITOR= ~/.profile)" ]; then
+    echo EDITOR=emacsclient >> ~/.profile
+  fi
 fi
 
 mkdir -p ~/site-lisp
