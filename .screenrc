@@ -1,0 +1,5 @@
+startup_message off
+term xterm-256color
+attrcolor b ".I"
+defscrollback 100000
+escape ^Jj
