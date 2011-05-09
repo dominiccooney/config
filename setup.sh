@@ -5,7 +5,7 @@ pushd $(dirname $0)
 popd
 
 if [ $(uname) = 'Darwin' ]; then
-  for port in emacs color-theme-mode.el
+  for port in emacs color-theme-mode.el sbcl slime
   do
     if [ -z "$(port list installed and $port)" ]; then
       sudo port install $port
@@ -16,6 +16,8 @@ if [ $(uname) = 'Darwin' ]; then
     echo EDITOR=emacsclient >> ~/.profile
   fi
 fi
+
+# TODO add setup steps for Linux packages
 
 mkdir -p ~/site-lisp
 pushd ~/site-lisp

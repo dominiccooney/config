@@ -21,6 +21,12 @@
 (add-hook 'c-mode-hook
           (function (lambda () (local-set-key "\C-o" 'ff-get-other-file))))
 
+(add-to-list 'load-path "/opt/local/share/emacs/site-lisp/slime")
+(setq slime-lisp-implementations
+     `((sbcl ("/opt/local/bin/sbcl"))))
+(require 'slime)
+(slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
