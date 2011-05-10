@@ -23,7 +23,7 @@
 
 (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/slime")
 (setq slime-lisp-implementations
-     `((sbcl ("/opt/local/bin/sbcl"))))
+     (list (list 'sbcl (list (replace-regexp-in-string "\n" "" (shell-command-to-string "which sbcl"))))))
 (require 'slime)
 (slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
 

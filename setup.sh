@@ -5,7 +5,7 @@ pushd $(dirname $0)
 popd
 
 if [ $(uname) = 'Darwin' ]; then
-  for port in emacs color-theme-mode.el sbcl slime
+  for port in screen emacs color-theme-mode.el sbcl slime
   do
     if [ -z "$(port list installed and $port)" ]; then
       sudo port install $port
@@ -15,9 +15,36 @@ if [ $(uname) = 'Darwin' ]; then
   if [ -z "$(grep EDITOR= ~/.profile)" ]; then
     echo EDITOR=emacsclient >> ~/.profile
   fi
-fi
+elif [ $(uname) = 'Linux' ]; then
+  for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl
+  do
+    if [ -z "$(dpkg -s $package | grep 'Status: install ok installed')" ]; then
+      sudo apt-get install $package
+    fi
+  done
 
-# TODO add setup steps for Linux packages
+  if [ -z "$(grep EDITOR= ~/.bashrc)" ]; then
+    echo EDITOR=emacsclient >> ~/.bashrc
+  fi
+
+  if [ -z "$(grep TERM=xterm-256color ~/.bashrc)" ]; then
+    echo TERM=xterm-256color >> ~/.bashrc
+  fi
+
+  # Set up aliases to act like pbcopy and pbpaste on Mac OS X
+  if [ -z "$(grep pbcopy ~/.bashrc)" ]; then
+    echo alias pbcopy=\'xsel --clipboard --input\' >> ~/.bashrc
+    echo alias pbpaste=\'xsel --clipboard --output\' >> ~/.bashrc
+  fi
+
+  # Remap capslock to control
+  mod_map_set=$(xmodmap -pk | awk '$1==66 && $3=="(Control_L)"{print}')
+  if [ -z "$mod_map_set" ]; then
+    xmodmap -e 'remove Lock = Caps_Lock'
+    xmodmap -e 'keysym Caps_Lock = Control_L'
+    xmodmap -e 'add Control = Control_L'
+  fi
+fi
 
 mkdir -p ~/site-lisp
 pushd ~/site-lisp
