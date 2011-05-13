@@ -36,11 +36,6 @@ elif [ $(uname) = 'Linux' ]; then
     echo alias pbcopy=\'xsel --clipboard --input\' >> ~/.bashrc
     echo alias pbpaste=\'xsel --clipboard --output\' >> ~/.bashrc
   fi
-
-  # Map caps lock to control
-  if [ -z "$(grep xmodmap ~/.bashrc)" ]; then
-    echo xmodmap ~/.xmodmaprc >> ~/.bashrc
-  fi
 fi
 
 mkdir -p ~/site-lisp
