@@ -37,12 +37,9 @@ elif [ $(uname) = 'Linux' ]; then
     echo alias pbpaste=\'xsel --clipboard --output\' >> ~/.bashrc
   fi
 
-  # Remap capslock to control
-  mod_map_set=$(xmodmap -pk | awk '$1==66 && $3=="(Control_L)"{print}')
-  if [ -z "$mod_map_set" ]; then
-    xmodmap -e 'remove Lock = Caps_Lock'
-    xmodmap -e 'keysym Caps_Lock = Control_L'
-    xmodmap -e 'add Control = Control_L'
+  # Map caps lock to control
+  if [ -z "$(grep xmodmap ~/.bashrc)" ]; then
+    echo xmodmap ~/.xmodmaprc >> ~/.bashrc
   fi
 fi
 
@@ -56,7 +53,7 @@ pushd ~/site-lisp
   fi
 popd
 
-for config_file in .emacs .screenrc
+for config_file in .emacs .screenrc .xmodmaprc
 do
   ln -s $REPO_DIR/$config_file ~/$config_file
 done
