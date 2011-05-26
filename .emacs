@@ -1,4 +1,26 @@
+; TODO: use after-make-frame-hook to make 80 column wide frames
+; TODO: replace split-window-sensibly to use available space on the right
+
+; TODO: move window management to its own library
+(defun three-columns ()
+  "Splits the frame horizontally into three windows of 80 columns."
+  (interactive)
+  (let ((desired-frame-width 245))
+    (when (< (frame-width) desired-frame-width)
+      (error "Frame too narrow for three columns, must be at least %d was %d"
+             desired-frame-width
+             (frame-width)))
+    (when (not (eq (selected-window) (next-window nil 'no-minibuf)))
+      (error "Too many windows"))
+    (set-frame-width nil desired-frame-width)
+    (dotimes (n 2)
+      (split-window-horizontally)
+      (setf (window-width) 81)
+      (select-window (next-window nil 'no-minibuf) t))))
+
 (server-start)
+
+(setq inhibit-splash-screen t)
 
 (add-to-list 'load-path (concat (getenv "HOME") "/site-lisp"))
 
