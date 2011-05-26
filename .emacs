@@ -24,6 +24,9 @@
 
 (add-to-list 'load-path (concat (getenv "HOME") "/site-lisp"))
 
+(add-to-list 'load-path (concat (getenv "HOME") "/webkit-tools"))
+(require 'webkit-stuff)
+
 (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/color-theme-6.6.0")
 (require 'color-theme)
 (eval-after-load "color-theme"
