@@ -20,6 +20,10 @@ if [ $(uname) = 'Darwin' ]; then
   if [ -z "$(grep EDITOR= ~/.profile)" ]; then
     echo EDITOR=emacsclient >> ~/.profile
   fi
+
+  if [ -z "$(grep SVN_LOG_EDITOR= ~/.profile)" ]; then
+    echo SVN_LOG_EDITOR=emacsclient >> ~/.profile
+  fi
 elif [ $(uname) = 'Linux' ]; then
   for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl
   do
@@ -71,7 +75,7 @@ pushd ~/site-lisp > /dev/null
   fi
 popd > /dev/null
 
-for config_file in .emacs .screenrc .xmodmaprc
+for config_file in .emacs .gdbinit .screenrc .xmodmaprc
 do
   ln -s $REPO_DIR/$config_file ~/$config_file
 done

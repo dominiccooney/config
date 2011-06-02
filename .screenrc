@@ -3,3 +3,22 @@ term xterm-256color
 attrcolor b ".I"
 defscrollback 100000
 escape ^Jj
+
+# detach on hangup
+autodetach on
+
+# remove some stupid / dangerous key bindings
+bind k
+bind ^k
+bind .
+bind ^\
+bind \\
+bind ^h
+bind h
+bind ^d
+
+# make them better
+bind 'K' kill
+bind 'I' login on
+bind 'O' login off
+bind '}' history
