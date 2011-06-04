@@ -35,6 +35,9 @@ line, or in the whitespace at the start of the second line."
 
 (add-to-list 'load-path (concat (getenv "HOME") "/site-lisp"))
 
+(require 'whitespace)
+(global-whitespace-mode 't)
+
 (add-to-list 'load-path (concat (getenv "HOME") "/webkit-tools"))
 (require 'webkit-stuff)
 (wk-setup)
@@ -83,7 +86,8 @@ line, or in the whitespace at the start of the second line."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(c-basic-offset 2)
- '(indent-tabs-mode nil))
+ '(indent-tabs-mode nil)
+ '(whitespace-style (quote (tabs trailing space-before-tab empty space-after-tab tab-mark))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
