@@ -10,7 +10,7 @@ if [ $(uname) = 'Darwin' ]; then
       exit 1
   fi
 
-  for port in screen emacs color-theme-mode.el sbcl slime
+  for port in screen emacs color-theme-mode.el sbcl slime irssi
   do
     if [ -z "$(port list installed and $port)" ]; then
       sudo port install $port
@@ -25,7 +25,7 @@ if [ $(uname) = 'Darwin' ]; then
     echo SVN_LOG_EDITOR=emacsclient >> ~/.profile
   fi
 elif [ $(uname) = 'Linux' ]; then
-  for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl
+  for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl irssi
   do
     if [ -z "$(dpkg -s $package | grep 'Status: install ok installed')" ]; then
       sudo apt-get install $package
@@ -34,6 +34,7 @@ elif [ $(uname) = 'Linux' ]; then
 
   if [ -z "$(grep EDITOR= ~/.bashrc)" ]; then
     echo EDITOR=emacsclient >> ~/.bashrc
+    echo GIT_EDITOR=emacsclient >> ~/.bashrc
   fi
 
   if [ -z "$(grep TERM=xterm-256color ~/.bashrc)" ]; then
