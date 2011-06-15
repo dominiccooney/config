@@ -17,13 +17,12 @@ if [ $(uname) = 'Darwin' ]; then
     fi
   done
 
-  if [ -z "$(grep EDITOR= ~/.profile)" ]; then
-    echo EDITOR=emacsclient >> ~/.profile
-  fi
-
-  if [ -z "$(grep SVN_LOG_EDITOR= ~/.profile)" ]; then
-    echo SVN_LOG_EDITOR=emacsclient >> ~/.profile
-  fi
+  for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
+  do
+    if [ -z "$(grep $editor_spec= ~/.bashrc)" ]; then
+      echo $editor_spec=emacsclient >> ~/.profile
+    fi
+  done
 elif [ $(uname) = 'Linux' ]; then
   for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl irssi
   do
@@ -32,10 +31,12 @@ elif [ $(uname) = 'Linux' ]; then
     fi
   done
 
-  if [ -z "$(grep EDITOR= ~/.bashrc)" ]; then
-    echo EDITOR=emacsclient >> ~/.bashrc
-    echo GIT_EDITOR=emacsclient >> ~/.bashrc
-  fi
+  for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
+  do
+    if [ -z "$(grep $editor_spec= ~/.bashrc)" ]; then
+      echo $editor_spec=emacsclient >> ~/.bashrc
+    fi
+  done
 
   if [ -z "$(grep TERM=xterm-256color ~/.bashrc)" ]; then
     echo TERM=xterm-256color >> ~/.bashrc
