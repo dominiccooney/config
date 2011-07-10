@@ -10,6 +10,9 @@ if [ $(uname) = 'Darwin' ]; then
       exit 1
   fi
 
+  sudo port selfupdate
+  sudo port upgrade outdated
+
   for port in screen emacs color-theme-mode.el sbcl slime
   do
     if [ -z "$(port list installed and $port)" ]; then
@@ -73,6 +76,15 @@ pushd ~/site-lisp > /dev/null
     emacs -Q --batch --eval '(byte-compile-file "color-moccur.el")
                              (byte-compile-file "moccur-edit.el")' --kill
   fi
+
+  if [ ! -d js2-mode-read-only ]; then
+    svn checkout http://js2-mode.googlecode.com/svn/trunk/ js2-mode-read-only
+  fi
+
+  pushd js2-mode-read-only > /dev/null
+    svn update
+    emacs -batch -q -l js2-build.el -f js2-build-js2-mode
+  popd > /dev/null
 popd > /dev/null
 
 for config_file in .emacs .gdbinit .screenrc .xmodmaprc

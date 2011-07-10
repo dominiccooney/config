@@ -67,6 +67,10 @@ line, or in the whitespace at the start of the second line."
 (require 'slime)
 (slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
 
+(add-to-list 'load-path "~/site-lisp/js2-mode-read-only")
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
 ;; display the column number in the modeline
 (column-number-mode ())
 
