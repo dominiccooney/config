@@ -13,31 +13,33 @@ if [ $(uname) = 'Darwin' ]; then
   sudo port selfupdate
   sudo port upgrade outdated
 
-  for port in screen emacs color-theme-mode.el sbcl slime
+  for port in screen emacs color-theme-mode.el sbcl slime irssi
   do
     if [ -z "$(port list installed and $port)" ]; then
       sudo port install $port
     fi
   done
 
-  if [ -z "$(grep EDITOR= ~/.profile)" ]; then
-    echo EDITOR=emacsclient >> ~/.profile
-  fi
-
-  if [ -z "$(grep SVN_LOG_EDITOR= ~/.profile)" ]; then
-    echo SVN_LOG_EDITOR=emacsclient >> ~/.profile
-  fi
+  for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
+  do
+    if [ -z "$(grep $editor_spec= ~/.bashrc)" ]; then
+      echo $editor_spec=emacsclient >> ~/.profile
+    fi
+  done
 elif [ $(uname) = 'Linux' ]; then
-  for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl
+  for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl irssi
   do
     if [ -z "$(dpkg -s $package | grep 'Status: install ok installed')" ]; then
       sudo apt-get install $package
     fi
   done
 
-  if [ -z "$(grep EDITOR= ~/.bashrc)" ]; then
-    echo EDITOR=emacsclient >> ~/.bashrc
-  fi
+  for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
+  do
+    if [ -z "$(grep $editor_spec= ~/.bashrc)" ]; then
+      echo $editor_spec=emacsclient >> ~/.bashrc
+    fi
+  done
 
   if [ -z "$(grep TERM=xterm-256color ~/.bashrc)" ]; then
     echo TERM=xterm-256color >> ~/.bashrc
