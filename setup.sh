@@ -13,12 +13,14 @@ if [ $(uname) = 'Darwin' ]; then
   sudo port selfupdate
   sudo port upgrade outdated
 
-  for port in screen emacs color-theme-mode.el sbcl slime irssi
+  for port in git-core screen emacs color-theme-mode.el sbcl slime irssi
   do
     if [ -z "$(port list installed and $port)" ]; then
       sudo port install $port
     fi
   done
+
+  sudo port install git-core +svn
 
   for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
   do
@@ -56,6 +58,10 @@ if [ -z "$(which git)" ]; then
   echo Install git
   exit 1
 fi
+
+# Push to the branch being tracked by default, instead of the branch
+# with the same name
+git config --global push.default tracking
 
 if [ ! -d ~/webkit-tools ]; then
   # Fetch webkit-tools
