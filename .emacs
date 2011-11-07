@@ -42,12 +42,9 @@ line, or in the whitespace at the start of the second line."
 (require 'webkit-stuff)
 (wk-setup)
 
-(add-to-list 'load-path "/opt/local/share/emacs/site-lisp/color-theme-6.6.0")
-(require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     (color-theme-initialize)
-     (color-theme-hober)))
+(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp/zenburn-emacs"))
+(require 'color-theme-zenburn)
+(color-theme-zenburn)
 
 (require 'color-moccur)
 (require 'moccur-edit)
@@ -67,7 +64,8 @@ line, or in the whitespace at the start of the second line."
 (require 'slime)
 (slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
 
-(add-to-list 'load-path "~/site-lisp/js2-mode-read-only")
+(add-to-list 'load-path
+	     (concat (getenv "HOME") "/site-lisp/js2-mode-read-only"))
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
