@@ -14,6 +14,14 @@ line, or in the whitespace at the start of the second line."
     (delete-region beg end)
     (insert " ")))
 
+(defun pbcopy (begin end)
+  "Copies the text between BEGIN and END to the system clipboard."
+  (interactive (list (point) (mark)))
+  (unless (and begin end)
+    (error "The mark is not set now, so there is no region"))
+  (let ((str (buffer-substring-no-properties begin end)))
+    (shell-command (concat "echo " (shell-quote-argument str) " | pbcopy"))))
+
 ; TODO: move window management to its own library
 (defun three-columns ()
   "Splits the frame horizontally into three windows of 80 columns."
