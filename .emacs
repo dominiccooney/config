@@ -91,6 +91,11 @@ line, or in the whitespace at the start of the second line."
   ;; If there is more than one, they won't work right.
  '(c-basic-offset 2)
  '(indent-tabs-mode nil)
+ '(js2-dynamic-idle-timer-adjust 1000)
+ '(js2-idle-timer-delay 1.0)
+ '(js2-include-gears-externs nil)
+ '(js2-include-rhino-externs nil)
+ '(python-indent 2)
  '(whitespace-style (quote (tabs trailing space-before-tab empty space-after-tab tab-mark))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
