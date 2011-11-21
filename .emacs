@@ -14,6 +14,14 @@ line, or in the whitespace at the start of the second line."
     (delete-region beg end)
     (insert " ")))
 
+(defun pbcopy (begin end)
+  "Copies the text between BEGIN and END to the system clipboard."
+  (interactive (list (point) (mark)))
+  (unless (and begin end)
+    (error "The mark is not set now, so there is no region"))
+  (let ((str (buffer-substring-no-properties begin end)))
+    (shell-command (concat "echo " (shell-quote-argument str) " | pbcopy"))))
+
 ; TODO: move window management to its own library
 (defun three-columns ()
   "Splits the frame horizontally into three windows of 80 columns."
@@ -42,12 +50,9 @@ line, or in the whitespace at the start of the second line."
 (require 'webkit-stuff)
 (wk-setup)
 
-(add-to-list 'load-path "/opt/local/share/emacs/site-lisp/color-theme-6.6.0")
-(require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     (color-theme-initialize)
-     (color-theme-hober)))
+(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp/zenburn-emacs"))
+(require 'color-theme-zenburn)
+(color-theme-zenburn)
 
 (require 'color-moccur)
 (require 'moccur-edit)
@@ -67,7 +72,8 @@ line, or in the whitespace at the start of the second line."
 (require 'slime)
 (slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
 
-(add-to-list 'load-path "~/site-lisp/js2-mode-read-only")
+(add-to-list 'load-path
+	     (concat (getenv "HOME") "/site-lisp/js2-mode-read-only"))
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 

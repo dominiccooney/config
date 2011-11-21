@@ -13,7 +13,7 @@ if [ $(uname) = 'Darwin' ]; then
   sudo port selfupdate
   sudo port upgrade outdated
 
-  for port in git-core screen emacs color-theme-mode.el sbcl slime irssi
+  for port in git-core screen emacs sbcl slime irssi
   do
     if [ -z "$(port list installed and $port)" ]; then
       sudo port install $port
@@ -93,6 +93,14 @@ pushd ~/site-lisp > /dev/null
     svn update
     emacs -batch -q -l js2-build.el -f js2-build-js2-mode
   popd > /dev/null
+
+  if [ ! -d zenburn-emacs ]; then
+    git clone git://github.com/bbatsov/zenburn-emacs.git
+  else
+    pushd zenburn-emacs > /dev/null
+      git pull
+    popd
+  fi
 popd > /dev/null
 
 for config_file in .emacs .gdbinit .screenrc .xmodmaprc
