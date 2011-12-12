@@ -29,7 +29,7 @@ if [ $(uname) = 'Darwin' ]; then
     fi
   done
 elif [ $(uname) = 'Linux' ]; then
-  for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl xmonad
+  for package in subversion screen emacs emacs-goodies-el sbcl slime git-core xsel curl xmonad
   do
     if [ -z "$(dpkg -s $package | grep 'Status: install ok installed')" ]; then
       sudo apt-get install $package
@@ -99,11 +99,22 @@ pushd ~/site-lisp > /dev/null
   else
     pushd zenburn-emacs > /dev/null
       git pull
-    popd
+    popd > /dev/null
   fi
 popd > /dev/null
 
-for config_file in .emacs .gdbinit .screenrc .Xmodmap
+for config_file in .emacs .gdbinit .screenrc
 do
   ln -s $REPO_DIR/$config_file ~/$config_file
 done
+
+if [ $(uname) = 'Linux' ]; then
+  for config_file in .Xmodmap .xmonad
+  do
+    ln -s $REPO_DIR/$config_file ~/
+  done
+
+  xmonad --recompile
+  gconftool-2 -s /desktop/gnome/session/required_components/windowmanager xmonad --type string
+fi
+
