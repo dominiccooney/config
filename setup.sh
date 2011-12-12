@@ -29,7 +29,7 @@ if [ $(uname) = 'Darwin' ]; then
     fi
   done
 elif [ $(uname) = 'Linux' ]; then
-  for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl irssi
+  for package in screen emacs emacs-goodies-el sbcl slime git-core xsel curl xmonad
   do
     if [ -z "$(dpkg -s $package | grep 'Status: install ok installed')" ]; then
       sudo apt-get install $package
@@ -103,7 +103,7 @@ pushd ~/site-lisp > /dev/null
   fi
 popd > /dev/null
 
-for config_file in .emacs .gdbinit .screenrc .xmodmaprc
+for config_file in .emacs .gdbinit .screenrc .Xmodmap
 do
   ln -s $REPO_DIR/$config_file ~/$config_file
 done
