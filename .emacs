@@ -23,6 +23,16 @@ line, or in the whitespace at the start of the second line."
     (shell-command (concat "echo " (shell-quote-argument str) " | pbcopy"))))
 
 ; TODO: move window management to its own library
+(defun eighty-cols ()
+  "Sets the frame to 80 columns."
+  (interactive)
+  (when (< (frame-width) 81)
+    (error "Frame too narrow, must be at least 81 was %d"
+           (frame-width)))
+  (when (not (eq (selected-window) (next-window nil 'no-minibuf)))
+    (error "Too many windows"))
+  (set-frame-width nil 81))
+
 (defun three-columns ()
   "Splits the frame horizontally into three windows of 80 columns."
   (interactive)
