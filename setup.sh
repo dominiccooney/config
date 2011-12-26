@@ -115,6 +115,8 @@ if [ $(uname) = 'Linux' ]; then
   done
 
   xmonad --recompile
-  gconftool-2 -s /desktop/gnome/session/required_components/windowmanager xmonad --type string
+
+  sudo cp xmonad.session /usr/share/gnome-session/sessions
+  sudo cp xmonad-unity-session.desktop /usr/share/xsessions
 fi
 
