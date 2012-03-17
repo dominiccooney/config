@@ -112,6 +112,7 @@ line, or in the whitespace at the start of the second line."
  '(js2-include-gears-externs nil)
  '(js2-include-rhino-externs nil)
  '(python-indent 2)
+ '(standard-indent 2)
  '(whitespace-style (quote (tabs trailing space-before-tab empty space-after-tab tab-mark))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
