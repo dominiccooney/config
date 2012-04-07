@@ -13,7 +13,7 @@ if [ $(uname) = 'Darwin' ]; then
   sudo port selfupdate
   sudo port upgrade outdated
 
-  for port in git-core screen emacs sbcl slime irssi
+  for port in git-core screen emacs sbcl slime irssi R
   do
     if [ -z "$(port list installed and $port)" ]; then
       sudo port install $port
@@ -24,10 +24,18 @@ if [ $(uname) = 'Darwin' ]; then
 
   for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
   do
-    if [ -z "$(grep $editor_spec= ~/.bashrc)" ]; then
+    if [ -z "$(grep $editor_spec= ~/.profile)" ]; then
       echo $editor_spec=emacsclient >> ~/.profile
     fi
   done
+
+  if [ -z "$(grep JAVA_HOME= ~/.profile)" ]; then
+    echo 'JAVA_HOME=$(/usr/libexec/java_home)' >> ~/.profile
+  fi
+
+  if [ -z "$(grep android-sdk-macosx= ~/.profile)" ]; then
+    echo 'PATH=~/android-sdk-macosx/tools:~/android-sdk-macosx/platform-tools:$PATH' >> ~/.profile
+  fi
 elif [ $(uname) = 'Linux' ]; then
   for package in subversion screen emacs emacs-goodies-el sbcl slime git-core xsel curl xmonad
   do
