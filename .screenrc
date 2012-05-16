@@ -19,6 +19,6 @@ bind ^d
 
 # make them better
 bind 'K' kill
-bind 'I' login on
-bind 'O' login off
+bind 'I'
+bind 'O'
 bind '}' history

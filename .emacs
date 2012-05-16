@@ -76,14 +76,14 @@ line, or in the whitespace at the start of the second line."
 (add-hook 'c-mode-hook
           (function (lambda () (local-set-key "\C-o" 'ff-get-other-file))))
 
-(add-to-list 'load-path "/opt/local/share/emacs/site-lisp/slime")
-(setq slime-lisp-implementations
-     (list (list 'sbcl (list (replace-regexp-in-string "\n" "" (shell-command-to-string "which sbcl"))))))
-(require 'slime)
-(slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
+; (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/slime")
+; (setq slime-lisp-implementations
+;     (list (list 'sbcl (list (replace-regexp-in-string "\n" "" (shell-command-to-string "which sbcl"))))))
+; (require 'slime)
+; (slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
 
 (add-to-list 'load-path
-	     (concat (getenv "HOME") "/site-lisp/js2-mode-read-only"))
+             (concat (getenv "HOME") "/js2-mode"))
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 

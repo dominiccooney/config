@@ -1,11 +1,15 @@
 #!/bin/bash
 
+EMACS=emacs
+
 pushd $(dirname $0) > /dev/null
   REPO_DIR=$(pwd)
 popd > /dev/null
 
 if [ $(uname) = 'Darwin' ]; then
-  if [ -z "$(which port)" ]; then
+  EMACS=emacs-snapshot
+
+  if [ -z $(which port) ]; then
       echo Install MacPorts first
       exit 1
   fi
@@ -13,9 +17,9 @@ if [ $(uname) = 'Darwin' ]; then
   sudo port selfupdate
   sudo port upgrade outdated
 
-  for port in git-core screen emacs sbcl slime irssi R
+  for port in git-core screen emacs-snapshot irssi R
   do
-    if [ -z "$(port list installed and $port)" ]; then
+    if [ -z $(port list installed and $port) ]; then
       sudo port install $port
     fi
   done
@@ -24,45 +28,49 @@ if [ $(uname) = 'Darwin' ]; then
 
   for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
   do
-    if [ -z "$(grep $editor_spec= ~/.profile)" ]; then
+    if [ -z $(grep ^$editor_spec= ~/.profile) ]; then
       echo $editor_spec=emacsclient >> ~/.profile
     fi
   done
 
-  if [ -z "$(grep JAVA_HOME= ~/.profile)" ]; then
+  if [ -z $(grep "alias emacs=emacs-snapshot" ~/.profile) ]; then
+    echo alias emacs=emacs-snapshot >> ~/.profile
+  fi
+
+  if [ -z $(grep JAVA_HOME= ~/.profile) ]; then
     echo 'JAVA_HOME=$(/usr/libexec/java_home)' >> ~/.profile
   fi
 
-  if [ -z "$(grep android-sdk-macosx= ~/.profile)" ]; then
+  if [ -z $(grep android-sdk-macosx ~/.profile) ]; then
     echo 'PATH=~/android-sdk-macosx/tools:~/android-sdk-macosx/platform-tools:$PATH' >> ~/.profile
   fi
 elif [ $(uname) = 'Linux' ]; then
-  for package in subversion screen emacs emacs-goodies-el sbcl slime git-core xsel curl xmonad
+  for package in subversion screen emacs emacs-goodies-el git-core xsel curl xmonad
   do
-    if [ -z "$(dpkg -s $package | grep 'Status: install ok installed')" ]; then
+    if [ -z $(dpkg -s $package | grep 'Status: install ok installed') ]; then
       sudo apt-get install $package
     fi
   done
 
   for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
   do
-    if [ -z "$(grep $editor_spec= ~/.bashrc)" ]; then
+    if [ -z $(grep $editor_spec= ~/.bashrc) ]; then
       echo $editor_spec=emacsclient >> ~/.bashrc
     fi
   done
 
-  if [ -z "$(grep TERM=xterm-256color ~/.bashrc)" ]; then
+  if [ -z $(grep TERM=xterm-256color ~/.bashrc) ]; then
     echo TERM=xterm-256color >> ~/.bashrc
   fi
 
   # Set up aliases to act like pbcopy and pbpaste on Mac OS X
-  if [ -z "$(grep pbcopy ~/.bashrc)" ]; then
+  if [ -z $(grep pbcopy ~/.bashrc) ]; then
     echo alias pbcopy=\'xsel --clipboard --input\' >> ~/.bashrc
     echo alias pbpaste=\'xsel --clipboard --output\' >> ~/.bashrc
   fi
 fi
 
-if [ -z "$(which git)" ]; then
+if [ -z $(which git) ]; then
   echo Install git
   exit 1
 fi
@@ -89,17 +97,25 @@ pushd ~/site-lisp > /dev/null
   if [ ! -f color-moccur.el ]; then
     curl -O http://www.bookshelf.jp/elc/color-moccur.el || exit 1
     curl -O http://www.emacswiki.org/emacs/download/moccur-edit.el || exit 1
-    emacs -Q --batch --eval '(byte-compile-file "color-moccur.el")
-                             (byte-compile-file "moccur-edit.el")' --kill
+    $EMACS -Q --batch --eval '(byte-compile-file "color-moccur.el")
+                              (byte-compile-file "moccur-edit.el")' --kill
   fi
 
-  if [ ! -d js2-mode-read-only ]; then
-    svn checkout http://js2-mode.googlecode.com/svn/trunk/ js2-mode-read-only
+  # Clean up old js2-mode
+  if [ -d js2-mode-read-only ]; then
+    rm -rf js2-mode-read-only
   fi
 
-  pushd js2-mode-read-only > /dev/null
-    svn update
-    emacs -batch -q -l js2-build.el -f js2-build-js2-mode
+  if [ ! -d js2-mode ]; then
+    git clone https://github.com/dgutov/js2-mode.git
+    pushd js2-mode > /dev/null
+      git checkout -b emacs24 origin/emacs24
+    popd > /dev/null
+  fi
+
+  pushd js2-mode > /dev/null
+    git pull
+    $EMACS --batch -f batch-byte-compile js2-mode.el
   popd > /dev/null
 
   if [ ! -d zenburn-emacs ]; then
