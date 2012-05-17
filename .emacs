@@ -83,7 +83,7 @@ line, or in the whitespace at the start of the second line."
 ; (slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
 
 (add-to-list 'load-path
-             (concat (getenv "HOME") "/js2-mode"))
+             (concat (getenv "HOME") "/site-lisp/js2-mode"))
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
