@@ -25,25 +25,6 @@ if [ $(uname) = 'Darwin' ]; then
   done
 
   sudo port install git-core +svn
-
-  for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
-  do
-    if [ -z $(grep ^$editor_spec= ~/.profile) ]; then
-      echo $editor_spec=emacsclient >> ~/.profile
-    fi
-  done
-
-  if [ -z $(grep "alias emacs=emacs-snapshot" ~/.profile) ]; then
-    echo alias emacs=emacs-snapshot >> ~/.profile
-  fi
-
-  if [ -z $(grep JAVA_HOME= ~/.profile) ]; then
-    echo 'JAVA_HOME=$(/usr/libexec/java_home)' >> ~/.profile
-  fi
-
-  if [ -z $(grep android-sdk-macosx ~/.profile) ]; then
-    echo 'PATH=~/android-sdk-macosx/tools:~/android-sdk-macosx/platform-tools:$PATH' >> ~/.profile
-  fi
 elif [ $(uname) = 'Linux' ]; then
   for package in subversion screen emacs emacs-goodies-el git-core xsel curl xmonad
   do
@@ -127,7 +108,8 @@ pushd ~/site-lisp > /dev/null
   fi
 popd > /dev/null
 
-for config_file in .emacs .gdbinit .screenrc
+
+for config_file in .emacs .gdbinit .screenrc .profile
 do
   ln -s $REPO_DIR/$config_file ~/$config_file
 done
