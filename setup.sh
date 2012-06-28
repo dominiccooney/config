@@ -122,7 +122,7 @@ if [ $(uname) = 'Linux' ]; then
 
   xmonad --recompile
 
-  sudo cp xmonad.session /usr/share/gnome-session/sessions
-  sudo cp xmonad-unity-session.desktop /usr/share/xsessions
+  sudo cp $REPO_DIR/xmonad.session /usr/share/gnome-session/sessions
+  sudo cp $REPO_DIR/xmonad-unity-session.desktop /usr/share/xsessions
 fi
 
