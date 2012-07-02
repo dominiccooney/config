@@ -124,6 +124,11 @@ done
 if [[ $(uname) = 'Linux' ]]; then
   for config_file in .Xmodmap .xmonad
   do
+    if [[ -h ~/$config_file ]]; then
+      rm ~/$config_file
+    else
+      rm -if $config_file
+    fi
     ln -s $REPO_DIR/$config_file ~/
   done
 
