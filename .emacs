@@ -52,6 +52,7 @@ line, or in the whitespace at the start of the second line."
 (server-start)
 
 (add-to-list 'load-path (concat (getenv "HOME") "/site-lisp"))
+(add-to-list 'custom-theme-load-path (concat (getenv "HOME") "/site-lisp/zenburn-emacs"))
 
 (require 'whitespace)
 (global-whitespace-mode 't)
@@ -59,10 +60,6 @@ line, or in the whitespace at the start of the second line."
 (add-to-list 'load-path (concat (getenv "HOME") "/webkit-tools"))
 (require 'webkit-stuff)
 (wk-setup)
-
-(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp/zenburn-emacs"))
-(require 'color-theme-zenburn)
-(color-theme-zenburn)
 
 (require 'color-moccur)
 (require 'moccur-edit)
@@ -120,3 +117,5 @@ line, or in the whitespace at the start of the second line."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(comint-highlight-prompt ((t (:foreground "goldenrod")))))
+
+(load-theme 'zenburn t)
