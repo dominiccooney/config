@@ -90,7 +90,7 @@ pushd ~/site-lisp > /dev/null
   fi
 
   if [[ ! -d js2-mode ]]; then
-    git clone https://github.com/dgutov/js2-mode.git
+    git clone https://github.com/mooz/js2-mode.git
     pushd js2-mode > /dev/null
       git checkout -b emacs24 origin/emacs24
     popd > /dev/null
@@ -118,7 +118,7 @@ do
   else
     rm -if $config_file
   fi
-  ln -s $REPO_DIR/$config_file ~/$config_file
+  ln -s $REPO_DIR/$config_file ~/
 done
 
 if [[ $(uname) = 'Linux' ]]; then
