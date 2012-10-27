@@ -17,7 +17,7 @@ if [[ $(uname) = 'Darwin' ]]; then
   # Uninstall emacs-snapshot if it is lying around.
   for unused_port in emacs-snapshot irssi
   do
-    port installed $unused_port || sudo port uninstall $unused_port
+    port installed $unused_port && sudo port uninstall $unused_port
   done
 
   sudo port selfupdate
