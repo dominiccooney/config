@@ -83,16 +83,16 @@ if [[ ! -d ~/webkit-tools/.git ]]; then
 else
   # Update webkit-tools
   pushd ~/webkit-tools > /dev/null
-  git checkout master || exit 1
-  git pull --ff-only origin master || exit 1
+  git checkout master
+  git pull --ff-only origin master
   popd > /dev/null
 fi
 
 mkdir -p ~/site-lisp
 pushd ~/site-lisp > /dev/null
   if [[ ! -f color-moccur.el ]]; then
-    curl -O http://www.bookshelf.jp/elc/color-moccur.el || exit 1
-    curl -O http://www.emacswiki.org/emacs/download/moccur-edit.el || exit 1
+    curl -O http://www.bookshelf.jp/elc/color-moccur.el
+    curl -O http://www.emacswiki.org/emacs/download/moccur-edit.el
     $EMACS -Q --batch --eval '(byte-compile-file "color-moccur.el")
 			      (byte-compile-file "moccur-edit.el")' --kill
   fi
