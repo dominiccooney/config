@@ -9,17 +9,21 @@ pushd $(dirname $0) > /dev/null
 popd > /dev/null
 
 if [[ $(uname) = 'Darwin' ]]; then
-  EMACS=emacs-snapshot
-
   if [[ -z $(which port) ]]; then
       echo Install MacPorts first
       exit 1
   fi
 
+  # Uninstall emacs-snapshot if it is lying around.
+  for unused_port in emacs-snapshot irssi
+  do
+    port installed $unused_port || sudo port uninstall $unused_port
+  done
+
   sudo port selfupdate
   sudo port upgrade outdated
 
-  for port in git-core screen emacs-snapshot irssi R
+  for port in git-core screen emacs R
   do
     if [[ -z $(port list installed and $port) ]]; then
       sudo port install $port
