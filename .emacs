@@ -51,8 +51,8 @@ line, or in the whitespace at the start of the second line."
 
 (server-start)
 
-(add-to-list 'custom-theme-load-path (concat (getenv "HOME") "/site-lisp/zenburn-emacs"))
-(load-theme 'zenburn t)
+(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp/zenburn-emacs"))
+(load-theme 'zenburn)
 
 (add-to-list 'load-path (concat (getenv "HOME") "/site-lisp"))
 

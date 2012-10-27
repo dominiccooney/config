@@ -17,20 +17,29 @@ if [[ $(uname) = 'Darwin' ]]; then
   # Uninstall emacs-snapshot if it is lying around.
   for unused_port in emacs-snapshot irssi
   do
-    port installed $unused_port && sudo port uninstall $unused_port
-  done
-
-  sudo port selfupdate
-  sudo port upgrade outdated
-
-  for port in git-core screen emacs R
-  do
-    if [[ -z $(port list installed and $port) ]]; then
-      sudo port install $port
+    if [[ ! -z $(port -q outdated $unused_port) ]]; then
+      sudo port uninstall -u $unused_port
     fi
   done
 
-  sudo port install git-core +svn
+  sudo port selfupdate
+  if [[ ! -z $(port list outdated) ]]; then
+    sudo port upgrade outdated
+  fi
+
+  for port in git-core screen emacs R mercurial
+  do
+    if [[ -z $(port list installed and $port) ]]; then
+      sudo port install -u $port
+    fi
+  done
+
+  sudo port install -u git-core +svn
+
+  if [[ ! -d ~/go/bin ]]; then
+    curl -o - 'http://go.googlecode.com/files/go1.0.3.darwin-amd64.tar.gz' | tar xz -C ~
+  fi
+
 elif [[ $(uname) = 'Linux' ]]; then
   for package in subversion screen emacs emacs-goodies-el git-core xsel curl xmonad
   do
@@ -39,7 +48,7 @@ elif [[ $(uname) = 'Linux' ]]; then
     fi
   done
 
-  for editor_spec in EDITOR GIT_EDITOR SVN_LOG_EDITOR VISUAL
+  for editor_spec in EDITOR SVN_LOG_EDITOR VISUAL
   do
     if [[ -z $(grep $editor_spec= ~/.bashrc) ]]; then
       echo $editor_spec=emacsclient >> ~/.bashrc
@@ -85,7 +94,7 @@ pushd ~/site-lisp > /dev/null
     curl -O http://www.bookshelf.jp/elc/color-moccur.el || exit 1
     curl -O http://www.emacswiki.org/emacs/download/moccur-edit.el || exit 1
     $EMACS -Q --batch --eval '(byte-compile-file "color-moccur.el")
-                              (byte-compile-file "moccur-edit.el")' --kill
+			      (byte-compile-file "moccur-edit.el")' --kill
   fi
 
   # Clean up old js2-mode
@@ -94,7 +103,7 @@ pushd ~/site-lisp > /dev/null
   fi
 
   if [[ ! -d js2-mode ]]; then
-    git clone https://github.com/mooz/js2-mode.git
+    git clone git://github.com/mooz/js2-mode.git
     pushd js2-mode > /dev/null
       git checkout -b emacs24 origin/emacs24
     popd > /dev/null
@@ -141,3 +150,5 @@ if [[ $(uname) = 'Linux' ]]; then
   sudo cp $REPO_DIR/xmonad.session /usr/share/gnome-session/sessions
   sudo cp $REPO_DIR/xmonad-unity-session.desktop /usr/share/xsessions
 fi
+
+echo '*** done ***'
