@@ -120,3 +120,4 @@ line, or in the whitespace at the start of the second line."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(comint-highlight-prompt ((t (:foreground "goldenrod")))))
+(put 'upcase-region 'disabled nil)
