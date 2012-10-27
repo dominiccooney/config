@@ -75,6 +75,9 @@ fi
 # with the same name
 git config --global push.default tracking
 
+git config --global color.ui true
+git config --global user.name 'Dominic Cooney'
+
 if [[ ! -d ~/webkit-tools/.git ]]; then
   # Fetch webkit-tools
   pushd ~ > /dev/null
