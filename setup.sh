@@ -42,29 +42,12 @@ if [[ $(uname) = 'Darwin' ]]; then
   fi
 
 elif [[ $(uname) = 'Linux' ]]; then
-  for package in subversion screen emacs emacs-goodies-el git-core xsel curl xmonad
+  for package in subversion screen emacs emacs-goodies-el git-core xsel curl xmonad gnome-pie
   do
     if [[ -z $(dpkg -s $package | grep 'Status: install ok installed') ]]; then
       sudo apt-get install $package
     fi
   done
-
-  for editor_spec in EDITOR SVN_LOG_EDITOR VISUAL
-  do
-    if [[ -z $(grep $editor_spec= ~/.bashrc) ]]; then
-      echo $editor_spec=emacsclient >> ~/.bashrc
-    fi
-  done
-
-  if [[ -z $(grep TERM=xterm-256color ~/.bashrc) ]]; then
-    echo TERM=xterm-256color >> ~/.bashrc
-  fi
-
-  # Set up aliases to act like pbcopy and pbpaste on Mac OS X
-  if [[ -z $(grep pbcopy ~/.bashrc) ]]; then
-    echo alias pbcopy=\'xsel --clipboard --input\' >> ~/.bashrc
-    echo alias pbpaste=\'xsel --clipboard --output\' >> ~/.bashrc
-  fi
 fi
 
 if [[ -z $(which git) ]]; then
@@ -130,26 +113,32 @@ popd > /dev/null
 
 for config_file in .emacs .gdbinit .screenrc .profile
 do
-  if [[ -h ~/$config_file ]]; then
-    rm ~/$config_file
-  else
-    rm -if $config_file
+  if [[ ! -h ~/$config_file ]]; then
+    rm -f ~/$config_file
   fi
-  ln -s $REPO_DIR/$config_file ~/
+  ln -sf $REPO_DIR/$config_file ~/
 done
 
 if [[ $(uname) = 'Linux' ]]; then
   for config_file in .Xmodmap .xmonad
   do
-    if [[ -h ~/$config_file ]]; then
-      rm ~/$config_file
-    else
-      rm -if $config_file
+    if [[ ! -h ~/$config_file ]]; then
+      rm -f ~/$config_file
     fi
-    ln -s $REPO_DIR/$config_file ~/
+    ln -sf $REPO_DIR/$config_file ~/
   done
 
+  if [[ -f ~/.bashrc ]]; then
+    rm -f ~/.bash_aliases
+    ln -s $REPO_DIR/.bashrc ~/.bash_aliases
+  else
+    ln -sf $REPO_DIR/.bashrc ~/
+  fi
+
   xmonad --recompile
+
+  mkdir -p ~/.config/gnome-pie
+  ln -sf $REPO_DIR/pies.conf ~/.config/gnome-pie
 
   sudo cp $REPO_DIR/xmonad.session /usr/share/gnome-session/sessions
 fi
