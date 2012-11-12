@@ -12,10 +12,11 @@ if [[ $(uname) = 'Darwin' ]]; then
 
   # Go
   export GOROOT=~/go
-  export PATH=~/go/bin:"$PATH"
 else
   export GOPATH=~/go
 fi
+
+export PATH=~/go/bin:"$PATH"
 
 if [ -n "$BASH_VERSION" ]; then
   if [ -f "$HOME/.bashrc" ]; then
