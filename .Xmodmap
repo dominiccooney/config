@@ -3,4 +3,4 @@ keysym Caps_Lock = Control_L
 add Control = Control_L
 keysym bracketleft = bracketleft braceleft U2018 U201C
 keysym bracketright = bracketright braceright U2019 U201D
-keysym Alt_L = Mode_switch
+pointer = 1 2 3 5 4 6 7 8 9 10 11 12 13
