@@ -52,7 +52,7 @@ line, or in the whitespace at the start of the second line."
 (server-start)
 
 (add-to-list 'load-path (concat (getenv "HOME") "/site-lisp/zenburn-emacs"))
-(load-theme 'zenburn)
+(require 'zenburn-theme)
 
 (add-to-list 'load-path (concat (getenv "HOME") "/site-lisp"))
 
