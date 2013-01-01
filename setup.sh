@@ -42,7 +42,7 @@ if [[ $(uname) = 'Darwin' ]]; then
   fi
 
 elif [[ $(uname) = 'Linux' ]]; then
-  for package in subversion screen emacs emacs-goodies-el git-core xsel curl xmonad gnome-pie
+  for package in subversion screen emacs24-nox emacs-goodies-el git-core xsel curl
   do
     if [[ -z $(dpkg -s $package | grep 'Status: install ok installed') ]]; then
       sudo apt-get install $package
@@ -120,7 +120,7 @@ do
 done
 
 if [[ $(uname) = 'Linux' ]]; then
-  for config_file in .Xmodmap .xmonad
+  for config_file in .Xmodmap
   do
     if [[ ! -h ~/$config_file ]]; then
       rm -f ~/$config_file
@@ -134,13 +134,6 @@ if [[ $(uname) = 'Linux' ]]; then
   else
     ln -sf $REPO_DIR/.bashrc ~/
   fi
-
-  xmonad --recompile
-
-  mkdir -p ~/.config/gnome-pie
-  ln -sf $REPO_DIR/pies.conf ~/.config/gnome-pie
-
-  sudo cp $REPO_DIR/xmonad.session /usr/share/gnome-session/sessions
 fi
 
 echo '*** done ***'
