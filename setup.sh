@@ -42,7 +42,7 @@ if [[ $(uname) = 'Darwin' ]]; then
   fi
 
 elif [[ $(uname) = 'Linux' ]]; then
-  for package in subversion screen emacs24-nox emacs-goodies-el git-core xsel curl
+  for package in subversion screen emacs24-nox emacs-goodies-el git-core xsel curl gnome-tweak-tool golang-go
   do
     if [[ -z $(dpkg -s $package | grep 'Status: install ok installed') ]]; then
       sudo apt-get install $package
@@ -134,6 +134,8 @@ if [[ $(uname) = 'Linux' ]]; then
   else
     ln -sf $REPO_DIR/.bashrc ~/
   fi
+
+  $REPO_DIR/source_code_pro.py
 fi
 
 echo '*** done ***'
