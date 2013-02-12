@@ -60,7 +60,7 @@ line, or in the whitespace at the start of the second line."
 (global-whitespace-mode 't)
 
 (let ((go-path
-       (or (getenv "GOHOME")
+       (or (getenv "GOROOT")
            (and (eq system-type 'darwin) "/usr/local/go"))))
   (if go-path
       (progn
