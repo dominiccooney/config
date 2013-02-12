@@ -59,6 +59,14 @@ line, or in the whitespace at the start of the second line."
 (require 'whitespace)
 (global-whitespace-mode 't)
 
+(let ((go-path
+       (or (getenv "GOHOME")
+           (and (eq system-type 'darwin) "/usr/local/go"))))
+  (if go-path
+      (progn
+        (add-to-list 'load-path (concat go-path "/misc/emacs"))
+        (require 'go-mode-load))))
+
 (add-to-list 'load-path (concat (getenv "HOME") "/webkit-tools"))
 (require 'webkit-stuff)
 (wk-setup)
