@@ -65,7 +65,7 @@ line, or in the whitespace at the start of the second line."
   (if go-path
       (progn
         (add-to-list 'load-path (concat go-path "/misc/emacs"))
-        (require 'go-mode-load))))
+        (ignore-errors (require 'go-mode-load)))))
 
 (add-to-list 'load-path (concat (getenv "HOME") "/webkit-tools"))
 (require 'webkit-stuff)
@@ -129,3 +129,8 @@ line, or in the whitespace at the start of the second line."
  '(comint-highlight-prompt ((t (:foreground "goldenrod")))))
 
 (put 'upcase-region 'disabled nil)
+
+(add-hook 'go-mode-hook
+  (lambda ()
+    (set (make-local-variable 'whitespace-style)
+         (quote (trailing space-before-tab empty space-after-tab)))))
