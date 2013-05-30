@@ -19,7 +19,8 @@ line, or in the whitespace at the start of the second line."
   (interactive (list (point) (mark)))
   (unless (and begin end)
     (error "The mark is not set now, so there is no region"))
-  (let ((str (buffer-substring-no-properties begin end)))
+  (let ((str (buffer-substring-no-properties begin end))
+        (shell-command-switch "-ic"))
     (shell-command (concat "echo " (shell-quote-argument str) " | pbcopy"))))
 
 ; TODO: move window management to its own library
