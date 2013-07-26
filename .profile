@@ -16,7 +16,7 @@ else
   export GOPATH=~/go
 fi
 
-export PATH=~/go/bin:"$PATH"
+export PATH=~/go/bin:/work/depot_tools:"$PATH"
 
 if [ -n "$BASH_VERSION" ]; then
   if [ -f "$HOME/.bashrc" ]; then
