@@ -42,7 +42,7 @@ if [[ $(uname) = 'Darwin' ]]; then
   fi
 
 elif [[ $(uname) = 'Linux' ]]; then
-  for package in subversion screen emacs24-nox emacs-goodies-el git-core xsel curl gnome-tweak-tool golang-go
+  for package in subversion screen emacs24-nox emacs-goodies-el git-core xsel curl gnome-tweak-tool
   do
     if [[ -z $(dpkg -s $package | grep 'Status: install ok installed') ]]; then
       sudo apt-get install $package
@@ -91,9 +91,6 @@ pushd ~/site-lisp > /dev/null
 
   if [[ ! -d js2-mode ]]; then
     git clone git://github.com/mooz/js2-mode.git
-    pushd js2-mode > /dev/null
-      git checkout -b emacs24 origin/emacs24
-    popd > /dev/null
   fi
 
   pushd js2-mode > /dev/null
