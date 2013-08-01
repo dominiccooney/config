@@ -10,4 +10,4 @@ if [[ $(uname) = 'Linux' ]]; then
   alias lock='gnome-screensaver-command --lock'
   alias logout='gnome-session-quit --logout'
 fi
-. ~/webkit-tools/completions
+. ~/blink-tools/completions
