@@ -68,9 +68,9 @@ line, or in the whitespace at the start of the second line."
         (add-to-list 'load-path (concat go-path "/misc/emacs"))
         (ignore-errors (require 'go-mode-load)))))
 
-(add-to-list 'load-path (concat (getenv "HOME") "/webkit-tools"))
-(require 'webkit-stuff)
-(wk-setup)
+(add-to-list 'load-path (concat (getenv "HOME") "/blink-tools"))
+(require 'blink-stuff)
+(bk-setup)
 
 (require 'color-moccur)
 (require 'moccur-edit)
