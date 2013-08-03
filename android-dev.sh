@@ -26,4 +26,4 @@
 export JAVA_HOME=~/jdk1.7.0_25
 export ANDROID_HOME=~/adt-bundle-linux-x86_64-20130522/sdk
 export NDK_HOME=~/android-ndk-r8e
-export PATH="~/.ghc/android-host/bin:~/.ghc/android-14/arm-linux-androideabi-4.7/bin:~/.ghc/android-14/x86-4.7/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$NDK_HOME:$PATH"
+export PATH="$HOME/.ghc/android-host/bin:$HOME/.ghc/android-14/arm-linux-androideabi-4.7/bin:$HOME/.ghc/android-14/arm-linux-androideabi-4.7/arm-linux-androideabi/bin:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$NDK_HOME:$PATH"
