@@ -24,11 +24,8 @@ now edit this text."
   (save-excursion
     (narrow-to-region start end)
     (goto-char (point-min))
-    (while (re-search-forward "^ *\"" nil t)
-      (replace-match "" nil nil))
-    (goto-char (point-min))
-    (while (re-search-forward "\\\\n\"$" nil t)
-      (replace-match "" nil nil))))
+    (while (re-search-forward "^ *\"\\(.*\\)\\\\n\"$" nil t)
+      (replace-match "\\1" nil nil))))
 
 (defun stringify (start end)
   "Converts the region to C-style strings."
