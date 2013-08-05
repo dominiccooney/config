@@ -14,11 +14,33 @@ line, or in the whitespace at the start of the second line."
     (delete-region beg end)
     (insert " ")))
 
+(defun unstringify (start end)
+  "Converts the region from C-style strings to text.
+Narrows the buffer to the region, on the assumption that you will
+now edit this text."
+  ; FIXME: This doesn't understand escapes.
+  ; FIXME: It would be nice to save the indent and restore it later.
+  (interactive "r")
+  (save-excursion
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (re-search-forward "^ *\"\\(.*\\)\\\\n\"$" nil t)
+      (replace-match "\\1" nil nil))))
+
+(defun stringify (start end)
+  "Converts the region to C-style strings."
+  ; FIXME: This doesn't understand escapes.
+  (interactive "r")
+  (save-excursion
+    (goto-char start)
+    (push-mark end t)
+    (while (re-search-forward "^\\(.*\\)$" (mark) t)
+      (replace-match "\"\\1\\\\n\"" nil nil))
+    (pop-mark)))
+
 (defun pbcopy (begin end)
   "Copies the text between BEGIN and END to the system clipboard."
-  (interactive (list (point) (mark)))
-  (unless (and begin end)
-    (error "The mark is not set now, so there is no region"))
+  (interactive "r")
   (let ((str (buffer-substring-no-properties begin end))
         (shell-command-switch "-ic"))
     (shell-command (concat "echo " (shell-quote-argument str) " | pbcopy"))))
@@ -94,6 +116,11 @@ line, or in the whitespace at the start of the second line."
              (concat (getenv "HOME") "/site-lisp/js2-mode"))
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+(add-to-list 'load-path
+             (concat (getenv "HOME") "/site-lisp/ts-emacs"))
+(autoload 'typescript-mode "TypeScript" nil t)
+(add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
 
 ;; display the column number in the modeline
 (column-number-mode ())
