@@ -49,6 +49,13 @@ else
   popd > /dev/null
 fi
 
+if [[ ! -d ~/depot_tools/.git ]]; then
+  # Fetch Chromium depot_tools
+  pushd ~ > /dev/null
+  git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+  popd > /dev/null
+fi
+
 mkdir -p ~/site-lisp
 pushd ~/site-lisp > /dev/null
   if [[ ! -f color-moccur.el ]]; then
