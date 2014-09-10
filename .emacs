@@ -136,10 +136,10 @@ now edit this text."
 (put 'narrow-to-region 'disabled nil)
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(c-basic-offset 2)
  '(indent-tabs-mode nil)
  '(js2-dynamic-idle-timer-adjust 1000)
@@ -147,14 +147,16 @@ now edit this text."
  '(js2-include-gears-externs nil)
  '(js2-include-rhino-externs nil)
  '(python-indent 2)
+ '(python-indent-offset 2)
  '(standard-indent 2)
- '(whitespace-style (quote (tabs trailing space-before-tab empty space-after-tab tab-mark))))
+ '(whitespace-style (quote (face tabs trailing space-before-tab empty space-after-tab tab-mark lines-tail))))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(comint-highlight-prompt ((t (:foreground "goldenrod")))))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(comint-highlight-prompt ((t (:foreground "goldenrod"))))
+ '(whitespace-line ((t (:foreground "color-61")))))
 
 (put 'upcase-region 'disabled nil)
 
