@@ -1,6 +1,13 @@
 ; TODO: use after-make-frame-hook to make 80 column wide frames
 ; TODO: replace split-window-sensibly to use available space on the right
 
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/")
+               t))
+
 (defun unwrap-line ()
   "Un-line-wrap the expression at point.
 Point must either be in the whitespace at the end of the first

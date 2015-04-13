@@ -16,7 +16,7 @@ if [[ $(uname) = 'Linux' ]]; then
     EMACS_PACKAGE=emacs24-nox
   fi
 
-  for package in subversion screen $EMACS_PACKAGE emacs-goodies-el git-core xsel curl gnome-tweak-tool
+  for package in subversion screen $EMACS_PACKAGE emacs-goodies-el git-core xsel curl
   do
     if [[ -z $(dpkg -s $package | grep 'Status: install ok installed') ]]; then
       sudo apt-get install $package
@@ -98,22 +98,12 @@ do
 done
 
 if [[ $(uname) = 'Linux' ]]; then
-  for config_file in .Xmodmap
-  do
-    if [[ ! -h ~/$config_file ]]; then
-      rm -f ~/$config_file
-    fi
-    ln -sf $REPO_DIR/$config_file ~/
-  done
-
   if [[ -f ~/.bashrc ]]; then
     rm -f ~/.bash_aliases
     ln -s $REPO_DIR/.bashrc ~/.bash_aliases
   else
     ln -sf $REPO_DIR/.bashrc ~/
   fi
-
-  $REPO_DIR/source_code_pro.py
 fi
 
 echo '*** done ***'
