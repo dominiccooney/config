@@ -1,6 +1,13 @@
 ; TODO: use after-make-frame-hook to make 80 column wide frames
 ; TODO: replace split-window-sensibly to use available space on the right
 
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/")
+               t))
+
 (defun unwrap-line ()
   "Un-line-wrap the expression at point.
 Point must either be in the whitespace at the end of the first
@@ -164,16 +171,17 @@ now edit this text."
  '(js2-include-gears-externs nil)
  '(js2-include-rhino-externs nil)
  '(package-archives (quote (("marmalade" . "http://marmalade-repo.org/packages/") ("gnu" . "http://elpa.gnu.org/packages/") ("MELPA" . "http://melpa.milkbox.net/packages/"))))
- '(python-indent 2)
  '(sentence-end-double-space nil)
+ '(python-indent-offset 2)
  '(standard-indent 2)
- '(whitespace-style (quote (tabs trailing space-before-tab empty space-after-tab tab-mark))))
+ '(whitespace-style (quote (face tabs trailing space-before-tab empty space-after-tab tab-mark lines-tail))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(comint-highlight-prompt ((t (:foreground "goldenrod")))))
+ '(comint-highlight-prompt ((t (:foreground "goldenrod"))))
+ '(whitespace-line ((t (:foreground "color-61")))))
 
 (put 'upcase-region 'disabled nil)
 

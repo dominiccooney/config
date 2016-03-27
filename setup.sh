@@ -9,40 +9,14 @@ pushd $(dirname $0) > /dev/null
   REPO_DIR=$(pwd)
 popd > /dev/null
 
-if [[ $(uname) = 'Darwin' ]]; then
-  if [[ -z $(which port) ]]; then
-      echo Install MacPorts first
-      exit 1
+if [[ $(uname) = 'Linux' ]]; then
+  if [[ $(lsb_release -i) =~ 'Debian' ]]; then
+    EMACS_PACKAGE=emacs23-nox
+  else
+    EMACS_PACKAGE=emacs24-nox
   fi
 
-  # Uninstall emacs-snapshot if it is lying around.
-  for unused_port in emacs-snapshot irssi
-  do
-    if [[ ! -z $(port -q outdated $unused_port) ]]; then
-      sudo port uninstall -u $unused_port
-    fi
-  done
-
-  sudo port selfupdate
-  if [[ ! -z $(port list outdated) ]]; then
-    sudo port upgrade outdated
-  fi
-
-  for port in git-core screen emacs R mercurial
-  do
-    if [[ -z $(port list installed and $port) ]]; then
-      sudo port install -u $port
-    fi
-  done
-
-  sudo port install -u git-core +svn
-
-  if [[ ! -d ~/go/bin ]]; then
-    curl -o - 'http://go.googlecode.com/files/go1.0.3.darwin-amd64.tar.gz' | tar xz -C ~
-  fi
-
-elif [[ $(uname) = 'Linux' ]]; then
-  for package in subversion screen emacs24-nox emacs-goodies-el git-core xsel curl gnome-tweak-tool
+  for package in subversion screen $EMACS_PACKAGE emacs-goodies-el git-core xsel curl
   do
     if [[ -z $(dpkg -s $package | grep 'Status: install ok installed') ]]; then
       sudo apt-get install $package
@@ -62,16 +36,23 @@ git config --global push.default tracking
 git config --global color.ui true
 git config --global user.name 'Dominic Cooney'
 
-if [[ ! -d ~/webkit-tools/.git ]]; then
-  # Fetch webkit-tools
+if [[ ! -d ~/blink-tools/.git ]]; then
+  # Fetch blink-tools
   pushd ~ > /dev/null
-  git clone git@github.com:coonsta/webkit-tools.git
+  git clone git@github.com:coonsta/blink-tools.git
   popd > /dev/null
 else
-  # Update webkit-tools
-  pushd ~/webkit-tools > /dev/null
+  # Update blink-tools
+  pushd ~/blink-tools > /dev/null
   git checkout master
   git pull --ff-only origin master
+  popd > /dev/null
+fi
+
+if [[ ! -d ~/depot_tools/.git ]]; then
+  # Fetch Chromium depot_tools
+  pushd ~ > /dev/null
+  git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
   popd > /dev/null
 fi
 
@@ -125,22 +106,12 @@ do
 done
 
 if [[ $(uname) = 'Linux' ]]; then
-  for config_file in .Xmodmap
-  do
-    if [[ ! -h ~/$config_file ]]; then
-      rm -f ~/$config_file
-    fi
-    ln -sf $REPO_DIR/$config_file ~/
-  done
-
   if [[ -f ~/.bashrc ]]; then
     rm -f ~/.bash_aliases
     ln -s $REPO_DIR/.bashrc ~/.bash_aliases
   else
     ln -sf $REPO_DIR/.bashrc ~/
   fi
-
-  $REPO_DIR/source_code_pro.py
 fi
 
 echo '*** done ***'
