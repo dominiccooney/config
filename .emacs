@@ -74,10 +74,14 @@ now edit this text."
 
 (server-start)
 
+(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp"))
+
 (add-to-list 'load-path (concat (getenv "HOME") "/site-lisp/zenburn-emacs"))
 (require 'zenburn-theme)
 
-(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp"))
+(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp/Emacs-D-Mode"))
+(autoload 'd-mode "d-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
 
 (require 'whitespace)
 (global-whitespace-mode 't)
@@ -105,6 +109,18 @@ now edit this text."
 
 (add-hook 'c-mode-hook
           (function (lambda () (local-set-key "\C-o" 'ff-get-other-file))))
+
+; org-mode
+
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+(add-hook 'org-mode-hook
+  (lambda ()
+    (set (make-local-variable 'whitespace-style)
+         (quote (space-before-tab empty space-after-tab)))))
 
 ; (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/slime")
 ; (setq slime-lisp-implementations
@@ -136,24 +152,27 @@ now edit this text."
 (put 'narrow-to-region 'disabled nil)
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(c-basic-offset 2)
+ '(haskell-mode-hook (quote (turn-on-haskell-doc turn-on-haskell-indent)))
  '(indent-tabs-mode nil)
  '(js2-dynamic-idle-timer-adjust 1000)
  '(js2-idle-timer-delay 1.0)
  '(js2-include-gears-externs nil)
  '(js2-include-rhino-externs nil)
+ '(package-archives (quote (("marmalade" . "http://marmalade-repo.org/packages/") ("gnu" . "http://elpa.gnu.org/packages/") ("MELPA" . "http://melpa.milkbox.net/packages/"))))
  '(python-indent 2)
+ '(sentence-end-double-space nil)
  '(standard-indent 2)
  '(whitespace-style (quote (tabs trailing space-before-tab empty space-after-tab tab-mark))))
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(comint-highlight-prompt ((t (:foreground "goldenrod")))))
 
 (put 'upcase-region 'disabled nil)
@@ -162,3 +181,8 @@ now edit this text."
   (lambda ()
     (set (make-local-variable 'whitespace-style)
          (quote (trailing space-before-tab empty space-after-tab)))))
+
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)

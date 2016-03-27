@@ -105,6 +105,14 @@ pushd ~/site-lisp > /dev/null
       git pull
     popd > /dev/null
   fi
+
+  if [[ ! -d Emacs-D-Mode ]]; then
+    git clone https://github.com/Emacs-D-Mode-Maintainers/Emacs-D-Mode.git
+  else
+    pushd Emacs-D-Mode > /dev/null
+      git pull
+    popd > /dev/null
+  fi
 popd > /dev/null
 
 
