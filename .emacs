@@ -50,7 +50,8 @@ now edit this text."
   (interactive "r")
   (let ((str (buffer-substring-no-properties begin end))
         (shell-command-switch "-ic"))
-    (shell-command (concat "echo " (shell-quote-argument str) " | pbcopy"))))
+    (shell-command (concat "echo " (shell-quote-argument str) " | xsel --clipboard --input"))))
+    ;(shell-command "xsel --clipboard --clear")))
 
 ; TODO: move window management to its own library
 (defun eighty-cols ()
@@ -104,6 +105,12 @@ now edit this text."
 (require 'color-moccur)
 (require 'moccur-edit)
 
+(setq org-agenda-files (list "~/plans/plan.org"))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-iswitchb)
+
 (add-hook 'change-log-mode-hook
           (function (lambda () (setq indent-tabs-mode nil))))
 
@@ -153,6 +160,9 @@ now edit this text."
  '(js2-idle-timer-delay 1.0)
  '(js2-include-gears-externs nil)
  '(js2-include-rhino-externs nil)
+ '(kill-do-not-save-duplicates t)
+ '(org-agenda-tags-todo-honor-ignore-options t)
+ '(org-agenda-todo-ignore-scheduled (quote future))
  '(python-indent 2)
  '(python-indent-offset 2)
  '(standard-indent 2)
@@ -171,3 +181,8 @@ now edit this text."
   (lambda ()
     (set (make-local-variable 'whitespace-style)
          (quote (trailing space-before-tab empty space-after-tab)))))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (set (make-local-variable 'whitespace-style)
+                 (quote (trailing space-before-tab empty space-after-tab)))))
