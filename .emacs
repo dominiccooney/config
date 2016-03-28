@@ -109,7 +109,7 @@ now edit this text."
 (require 'color-moccur)
 (require 'moccur-edit)
 
-(setq org-agenda-files (list "~/plans/plan.org"))
+(setq org-agenda-files (list (concat (getenv "HOME") "/plan/plan.org")))
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
@@ -125,6 +125,8 @@ now edit this text."
           (function (lambda () (local-set-key "\C-o" 'ff-get-other-file))))
 
 ; org-mode
+
+(setq org-default-notes-file (car org-agenda-files))
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-cc" 'org-capture)
