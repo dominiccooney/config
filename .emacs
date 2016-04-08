@@ -82,15 +82,7 @@ now edit this text."
 
 (server-start)
 
-(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp"))
-
-(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp/zenburn-emacs"))
 (require 'zenburn-theme)
-
-(add-to-list 'load-path (concat (getenv "HOME") "/site-lisp/Emacs-D-Mode"))
-(autoload 'd-mode "d-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.d[i]?\\'" . d-mode))
-
 (require 'whitespace)
 (global-whitespace-mode 't)
 
@@ -138,21 +130,8 @@ now edit this text."
     (set (make-local-variable 'whitespace-style)
          (quote (trailing space-before-tab empty space-after-tab)))))
 
-; (add-to-list 'load-path "/opt/local/share/emacs/site-lisp/slime")
-; (setq slime-lisp-implementations
-;     (list (list 'sbcl (list (replace-regexp-in-string "\n" "" (shell-command-to-string "which sbcl"))))))
-; (require 'slime)
-; (slime-setup  '(slime-repl slime-asdf slime-fancy slime-banner))
-
-(add-to-list 'load-path
-             (concat (getenv "HOME") "/site-lisp/js2-mode"))
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-(add-to-list 'load-path
-             (concat (getenv "HOME") "/site-lisp/ts-emacs"))
-(autoload 'typescript-mode "TypeScript" nil t)
-(add-to-list 'auto-mode-alist '("\\.ts$" . typescript-mode))
 
 ;; display the column number in the modeline
 (column-number-mode ())

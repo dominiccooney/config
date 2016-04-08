@@ -56,46 +56,14 @@ if [[ ! -d ~/depot_tools/.git ]]; then
   popd > /dev/null
 fi
 
-mkdir -p ~/site-lisp
-pushd ~/site-lisp > /dev/null
-  if [[ ! -f color-moccur.el ]]; then
-    curl -O http://www.bookshelf.jp/elc/color-moccur.el
-    curl -O http://www.emacswiki.org/emacs/download/moccur-edit.el
-    $EMACS -Q --batch --eval '(byte-compile-file "color-moccur.el")
-			      (byte-compile-file "moccur-edit.el")' --kill
-  fi
-
-  # Clean up old js2-mode
-  if [[ -d js2-mode-read-only ]]; then
-    rm -rf js2-mode-read-only
-  fi
-
-  if [[ ! -d js2-mode ]]; then
-    git clone git://github.com/mooz/js2-mode.git
-  fi
-
-  pushd js2-mode > /dev/null
-    git pull
-    $EMACS --batch -f batch-byte-compile js2-mode.el
-  popd > /dev/null
-
-  if [[ ! -d zenburn-emacs ]]; then
-    git clone git://github.com/bbatsov/zenburn-emacs.git
-  else
-    pushd zenburn-emacs > /dev/null
-      git pull
-    popd > /dev/null
-  fi
-
-  if [[ ! -d Emacs-D-Mode ]]; then
-    git clone https://github.com/Emacs-D-Mode-Maintainers/Emacs-D-Mode.git
-  else
-    pushd Emacs-D-Mode > /dev/null
-      git pull
-    popd > /dev/null
-  fi
-popd > /dev/null
-
+$EMACS -Q --batch --eval "
+(progn
+  (package-initialize)
+  (unless package-archive-contents
+    (package-refresh-contents))
+  (dolist (package '(color-moccur zenburn-theme js2-mode))
+    (unless (package-installed-p package)
+      (package-install package))))"
 
 for config_file in .emacs .gdbinit .screenrc .profile
 do
