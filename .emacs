@@ -99,7 +99,6 @@ now edit this text."
 (bk-setup)
 
 (require 'color-moccur)
-(require 'moccur-edit)
 
 (setq org-agenda-files (list (concat (getenv "HOME") "/plan/plan.org")))
 (global-set-key "\C-cl" 'org-store-link)
