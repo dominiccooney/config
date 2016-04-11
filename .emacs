@@ -82,7 +82,9 @@ now edit this text."
 
 (server-start)
 
-(require 'zenburn-theme)
+(require 'apropospriate)
+(load-theme 'apropospriate-dark t)
+
 (require 'whitespace)
 (global-whitespace-mode 't)
 

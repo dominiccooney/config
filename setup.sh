@@ -61,7 +61,7 @@ $EMACS -Q --batch --eval "
   (package-initialize)
   (unless package-archive-contents
     (package-refresh-contents))
-  (dolist (package '(color-moccur zenburn-theme js2-mode))
+  (dolist (package '(color-moccur apropospriate-theme js2-mode))
     (unless (package-installed-p package)
       (package-install package))))"
 
