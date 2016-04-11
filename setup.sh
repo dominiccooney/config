@@ -56,6 +56,8 @@ if [[ ! -d ~/depot_tools/.git ]]; then
   popd > /dev/null
 fi
 
+rm -rf ~/site-lisp
+
 $EMACS -Q --batch --eval "
 (progn
   (package-initialize)

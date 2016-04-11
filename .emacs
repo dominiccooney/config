@@ -153,6 +153,7 @@ now edit this text."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(c-basic-offset 2)
+ '(custom-safe-themes (quote ("c3e6b52caa77cb09c049d3c973798bc64b5c43cc437d449eacf35b3e776bf85c" "f3d6a49e3f4491373028eda655231ec371d79d6d2a628f08d5aa38739340540b" "5a0eee1070a4fc64268f008a4c7abfda32d912118e080e18c3c865ef864d1bea" default)))
  '(haskell-mode-hook (quote (turn-on-haskell-doc turn-on-haskell-indent)))
  '(indent-tabs-mode nil)
  '(js2-dynamic-idle-timer-adjust 1000)
@@ -162,10 +163,12 @@ now edit this text."
  '(kill-do-not-save-duplicates t)
  '(org-agenda-tags-todo-honor-ignore-options t)
  '(org-agenda-todo-ignore-scheduled (quote future))
- '(python-indent 2)
+ '(org-enforce-todo-checkbox-dependencies t)
+ '(org-enforce-todo-dependencies t)
  '(package-archives (quote (("marmalade" . "http://marmalade-repo.org/packages/") ("gnu" . "http://elpa.gnu.org/packages/") ("MELPA" . "http://melpa.milkbox.net/packages/"))))
- '(sentence-end-double-space nil)
+ '(python-indent 2)
  '(python-indent-offset 2)
+ '(sentence-end-double-space nil)
  '(standard-indent 2)
  '(whitespace-style (quote (face tabs trailing space-before-tab empty space-after-tab tab-mark lines-tail))))
 (custom-set-faces
