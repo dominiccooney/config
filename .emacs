@@ -102,12 +102,6 @@ now edit this text."
 
 (require 'color-moccur)
 
-(setq org-agenda-files (list (concat (getenv "HOME") "/plan/plan.org")))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-iswitchb)
-
 (add-hook 'change-log-mode-hook
           (function (lambda () (setq indent-tabs-mode nil))))
 
@@ -119,6 +113,7 @@ now edit this text."
 
 ; org-mode
 
+(setq org-agenda-files (list (concat (getenv "HOME") "/plan/plan.org")))
 (setq org-default-notes-file (car org-agenda-files))
 
 (global-set-key "\C-cl" 'org-store-link)
@@ -161,8 +156,11 @@ now edit this text."
  '(js2-include-gears-externs nil)
  '(js2-include-rhino-externs nil)
  '(kill-do-not-save-duplicates t)
+ '(org-agenda-dim-blocked-tasks t)
  '(org-agenda-tags-todo-honor-ignore-options t)
  '(org-agenda-todo-ignore-scheduled (quote future))
+ '(org-capture-templates (quote (("x" "TODO" entry (file "~/plan/plan.org") "TODO %^{TODO}" :prepend t :clock-keep t))))
+ '(org-clock-idle-time 15)
  '(org-enforce-todo-checkbox-dependencies t)
  '(org-enforce-todo-dependencies t)
  '(package-archives (quote (("marmalade" . "http://marmalade-repo.org/packages/") ("gnu" . "http://elpa.gnu.org/packages/") ("MELPA" . "http://melpa.milkbox.net/packages/"))))
