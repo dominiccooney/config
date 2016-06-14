@@ -60,10 +60,14 @@ rm -rf ~/site-lisp
 
 $EMACS -Q --batch --eval "
 (progn
+  (setq package-archives
+    '((\"gnu\" . \"https://elpa.gnu.org/packages/\")
+      (\"marmalade\" . \"https://marmalade-repo.org/packages/\")
+      (\"melpa\" . \"https://melpa.org/packages/\")))
   (package-initialize)
   (unless package-archive-contents
     (package-refresh-contents))
-  (dolist (package '(color-moccur apropospriate-theme js2-mode))
+  (dolist (package '(color-moccur material-theme js2-mode))
     (unless (package-installed-p package)
       (package-install package))))"
 

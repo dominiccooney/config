@@ -82,8 +82,7 @@ now edit this text."
 
 (server-start)
 
-(require 'apropospriate)
-(load-theme 'apropospriate-dark t)
+(load-theme 'material t)
 
 (require 'whitespace)
 (global-whitespace-mode 't)
