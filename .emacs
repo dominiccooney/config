@@ -174,6 +174,7 @@ now edit this text."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(comint-highlight-prompt ((t (:foreground "goldenrod"))))
+ '(js2-error ((t (:inherit flycheck-error :background "color-53" :foreground "magenta" :underline nil))))
  '(whitespace-line ((t (:foreground "color-61")))))
 
 (put 'upcase-region 'disabled nil)
