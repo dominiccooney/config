@@ -10,13 +10,10 @@ pushd $(dirname $0) > /dev/null
 popd > /dev/null
 
 if [[ $(uname) = 'Linux' ]]; then
-  if [[ $(lsb_release -i) =~ 'Debian' ]]; then
-    EMACS_PACKAGE=emacs23-nox
-  else
-    EMACS_PACKAGE=emacs24-nox
-  fi
+  # TODO(dpc): Switch to emacs25
+  EMACS_PACKAGE=emacs24
 
-  for package in subversion screen $EMACS_PACKAGE emacs-goodies-el git-core xsel curl
+  for package in subversion screen $EMACS_PACKAGE emacs-goodies-el git-core xsel curl latex dvipng
   do
     if [[ -z $(dpkg -s $package | grep 'Status: install ok installed') ]]; then
       sudo apt-get install $package
@@ -62,12 +59,11 @@ $EMACS -Q --batch --eval "
 (progn
   (setq package-archives
     '((\"gnu\" . \"https://elpa.gnu.org/packages/\")
-      (\"marmalade\" . \"https://marmalade-repo.org/packages/\")
       (\"melpa\" . \"https://melpa.org/packages/\")))
   (package-initialize)
   (unless package-archive-contents
     (package-refresh-contents))
-  (dolist (package '(color-moccur material-theme js2-mode))
+  (dolist (package '(material-theme js2-mode))
     (unless (package-installed-p package)
       (package-install package))))"
 
