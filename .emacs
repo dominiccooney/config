@@ -1,15 +1,12 @@
 ; TODO: use after-make-frame-hook to make 80 column wide frames
 ; TODO: replace split-window-sensibly to use available space on the right
 
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/")
-               t)
-  (add-to-list 'package-archives
-               '("org" . "https://orgmode.org/elpa/")
-               t))
+(package-initialize)
+
+(eval-after-load "org"
+  '(progn
+     (require 'cl)
+     (require 'org-drill)))
 
 (defun unwrap-line ()
   "Un-line-wrap the expression at point.
@@ -169,21 +166,22 @@ now edit this text."
  '(org-clock-idle-time 15)
  '(org-enforce-todo-checkbox-dependencies t)
  '(org-enforce-todo-dependencies t)
+ '(org-export-backends (quote (ascii html latex)))
  '(org-format-latex-options
    (quote
     (:foreground default :background default :scale 2.2 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(org-modules
    (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill)))
+    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m)))
  '(package-archives
    (quote
-    (("gnu" . "https://elpa.gnu.org/packages/")
-     ("MELPA" . "https://melpa.org/packages/")
-     ("org" . "http://orgmode.org/elpa/"))))
+    (("org" . "http://orgmode.org/elpa/")
+     ("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa" . "https://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (org-plus-contrib scala-mode2 rust-mode material-theme julia-mode js2-mode go-mode)))
+    (org org-plus-contrib material-theme julia-mode js2-mode go-mode)))
  '(python-indent 2)
  '(python-indent-offset 2)
  '(sentence-end-double-space nil)
@@ -197,8 +195,8 @@ now edit this text."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(comint-highlight-prompt ((t (:foreground "goldenrod"))))
- '(js2-error ((t (:inherit flycheck-error :background "color-53" :foreground "magenta" :underline nil))))
- '(whitespace-line ((t (:foreground "color-61")))))
+ '(js2-error ((t (:inherit flycheck-error :background "tomato" :foreground "sienna" :underline nil))))
+ '(whitespace-line ((t (:foreground "GreenYellow")))))
 
 (put 'upcase-region 'disabled nil)
 
