@@ -59,11 +59,12 @@ $EMACS -Q --batch --eval "
 (progn
   (setq package-archives
     '((\"gnu\" . \"https://elpa.gnu.org/packages/\")
-      (\"melpa\" . \"https://melpa.org/packages/\")))
+      (\"melpa\" . \"https://melpa.org/packages/\")
+      (\"org\" . \"http://orgmode.org/elpa/\")))
   (package-initialize)
   (unless package-archive-contents
     (package-refresh-contents))
-  (dolist (package '(material-theme js2-mode))
+  (dolist (package '(material-theme js2-mode org-plus-contrib))
     (unless (package-installed-p package)
       (package-install package))))"
 

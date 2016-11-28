@@ -5,7 +5,10 @@
   (require 'package)
   (package-initialize)
   (add-to-list 'package-archives
-               '("melpa" . "http://melpa.org/packages/")
+               '("melpa" . "https://melpa.org/packages/")
+               t)
+  (add-to-list 'package-archives
+               '("org" . "https://orgmode.org/elpa/")
                t))
 
 (defun unwrap-line ()
@@ -170,11 +173,17 @@ now edit this text."
    (quote
     (:foreground default :background default :scale 2.2 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
+ '(org-modules
+   (quote
+    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill)))
  '(package-archives
    (quote
-    (("marmalade" . "http://marmalade-repo.org/packages/")
-     ("gnu" . "http://elpa.gnu.org/packages/")
-     ("MELPA" . "http://melpa.milkbox.net/packages/"))))
+    (("gnu" . "https://elpa.gnu.org/packages/")
+     ("MELPA" . "https://melpa.org/packages/")
+     ("org" . "http://orgmode.org/elpa/"))))
+ '(package-selected-packages
+   (quote
+    (org-plus-contrib scala-mode2 rust-mode material-theme julia-mode js2-mode go-mode)))
  '(python-indent 2)
  '(python-indent-offset 2)
  '(sentence-end-double-space nil)
