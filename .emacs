@@ -4,9 +4,10 @@
 (package-initialize)
 
 (eval-after-load "org"
-  '(progn
-     (require 'cl)
-     (require 'org-drill)))
+ '(progn
+    (require 'cl)
+    (require 'ox)
+    (require 'org-drill)))
 
 (defun unwrap-line ()
   "Un-line-wrap the expression at point.
@@ -164,6 +165,8 @@ now edit this text."
       (file "~/plan/plan.org")
       "TODO %^{TODO}" :prepend t :clock-keep t))))
  '(org-clock-idle-time 15)
+ '(org-drill-left-cloze-delimiter "(|")
+ '(org-drill-right-cloze-delimiter "|)")
  '(org-enforce-todo-checkbox-dependencies t)
  '(org-enforce-todo-dependencies t)
  '(org-export-backends (quote (ascii html latex)))
