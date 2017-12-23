@@ -4,6 +4,8 @@ case $- in
       *) return;;
 esac
 
+set -o vi
+
 EDITOR=emacsclient
 SVN_LOG_EDITOR=emacsclient
 VISUAL=emacsclient

@@ -11,9 +11,9 @@ popd > /dev/null
 
 if [[ $(uname) = 'Linux' ]]; then
   # TODO(dpc): Switch to emacs25
-  EMACS_PACKAGE=emacs24
+  EMACS_PACKAGE=emacs24-nox
 
-  for package in subversion screen $EMACS_PACKAGE emacs-goodies-el git-core xsel curl latex dvipng
+  for package in subversion screen $EMACS_PACKAGE emacs-goodies-el git-core xsel curl python3-pip python3-dev python-virtualenv
   do
     if [[ -z $(dpkg -s $package | grep 'Status: install ok installed') ]]; then
       sudo apt-get install $package
@@ -85,4 +85,13 @@ if [[ $(uname) = 'Linux' ]]; then
   fi
 fi
 
+# Install Cuda and TensorFlow
+#sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+#curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.1.85-1_amd64.deb
+#sudo dbkg -i cuda-repo-ubuntu1604_9.1.85-1_amd64.deb
+#sudo apt-get update
+#sudo apt-get install cuda-8.0
+# https://developer.nvidia.com/rdp/cudnn-download 6.0 for CUDA 8.0 runtime library, then developer library, for Ubuntu 16.04 deb
+# sudo apt-get install libcupti-dev
+# ... see https://www.tensorflow.org/install/install_linux
 echo '*** done ***'
